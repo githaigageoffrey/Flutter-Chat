@@ -34,17 +34,20 @@ class _ChatScreenState extends State<ChatScreen>
             return Center(child: CircularProgressIndicator(),);
           }
           final documents = streamSnapShot.data.documents;
-          print(documents);
           return ListView.builder(
             itemCount: documents.length,
             itemBuilder: (ctx, index) => Container(
-                padding: EdgeInsets.all(10), child: Text(documents[index]["texts"])),
+                padding: EdgeInsets.all(10), child: Text(documents[index]["text"])),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
+            Firestore.instance
+            .collection("chats/GcKNhSdcuTxtWowMHBDR/messages").add({
+              "text" : "This is a user added button chat"
+            });
           }),
     );
   }
