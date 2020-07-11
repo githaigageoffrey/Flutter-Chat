@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AuthForm extends StatefulWidget {
   AuthForm(this.submitFn);
 
-  final void Function(String emailAddress,String password, String username, bool isLogin) submitFn;
+  final void Function(String emailAddress,String password, String username, bool isLogin, BuildContext context) submitFn;
 
   @override
   _AuthFormState createState() => _AuthFormState();
@@ -35,7 +35,7 @@ class _AuthFormState extends State<AuthForm>
     }
     _formKey.currentState.save();
     FocusScope.of(context).unfocus();
-    widget.submitFn(_emailAddress,_password,_userName,_isLogin);
+    widget.submitFn(_emailAddress,_password,_userName,_isLogin,context);
   }
 
   @override
