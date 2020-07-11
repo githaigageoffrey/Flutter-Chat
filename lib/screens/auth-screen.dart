@@ -22,10 +22,14 @@ class _AuthScreenState extends State<AuthScreen>
     _controller.dispose();
   }
 
+  void _submitForm(String emailAddress,String password, String username, bool isLogin){
+    print(isLogin);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        body: AuthForm());
+        body: AuthForm(_submitForm));
   }
 }
