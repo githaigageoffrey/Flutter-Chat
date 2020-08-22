@@ -30,7 +30,7 @@ class MessageBubble extends StatelessWidget {
                       color: isMe?Colors.black: Theme.of(context).accentTextTheme.title.color)),
             ),
             Container(
-              width: 140,
+              width: MediaQuery.of(context).size.width*0.4,
               margin: EdgeInsets.only(top: 0, left: 8,bottom: 5,right:15),
               child: Text(time,
                   style: TextStyle(
