@@ -11,6 +11,7 @@ class _NewMessageState extends State<NewMessage>
   AnimationController _controller;
 
   var _enteredMessage = "";
+  final _messageController = new TextEditingController();
 
   @override
   void initState() {
@@ -26,10 +27,14 @@ class _NewMessageState extends State<NewMessage>
 
   void _sendMessage() {
     FocusScope.of(context).unfocus();
-    Firestore.instance.collection("chat").add({"text": _enteredMessage});
+    Firestore.instance.collection("chat").add({
+      "text": _enteredMessage,
+      "createdOn" : Timestamp.now(),
+    });
     setState(() {
       _enteredMessage = '';
     });
+    _messageController.clear();
   }
 
   @override
@@ -41,6 +46,7 @@ class _NewMessageState extends State<NewMessage>
         children: [
           Expanded(
             child: TextField(
+              controller: _messageController,
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(labelText: "Send a message ...."),
               onChanged: (value) {

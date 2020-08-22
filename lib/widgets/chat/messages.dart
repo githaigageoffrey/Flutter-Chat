@@ -6,7 +6,7 @@ class Messages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: Firestore.instance.collection("chat").snapshots(),
+      stream: Firestore.instance.collection("chat").orderBy("createdOn", descending:true).snapshots(),
       builder: (ctx,chatSnapShots){
         if(chatSnapShots.connectionState==ConnectionState.waiting){
           return Center(child: CircularProgressIndicator(),);
