@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class NewMessage extends StatefulWidget {
@@ -23,6 +24,16 @@ class _NewMessageState extends State<NewMessage>
     _controller.dispose();
   }
 
+  void _sendMessage(){
+    FocusScope.of(context).unfocus();
+    Firestore.instance.collection("chat").add({
+      "text" : _enteredMessage
+    });
+    setState(() {
+      _enteredMessage = '';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,7 +53,7 @@ class _NewMessageState extends State<NewMessage>
           IconButton(
             color: Theme.of(context).primaryColor,
             icon: Icon(Icons.send),
-            onPressed: () {},
+            onPressed: _enteredMessage.trim().isEmpty?null:_sendMessage
           )
         ],
       ),
