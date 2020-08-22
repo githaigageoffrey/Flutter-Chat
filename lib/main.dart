@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/screens/auth-screen.dart';
+import 'package:flutter_complete_guide/screens/chat-screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,7 +24,13 @@ class MyApp extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
         )
       ),
-      home: AuthScreen(),
+      home: StreamBuilder(stream: FirebaseAuth.instance.onAuthStateChanged,builder:(ctx,userSnapShot){
+        if(userSnapShot.hasData){
+          return ChatScreen();
+        }else{
+          return AuthScreen();
+        }
+      })
     );
   }
 }
