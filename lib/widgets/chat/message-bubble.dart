@@ -12,7 +12,7 @@ class MessageBubble extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).accentColor,
+                color: isMe?Colors.grey[300]:Theme.of(context).accentColor,
                 borderRadius: BorderRadius.circular(12),
               ),
               width: 140,
@@ -20,12 +20,12 @@ class MessageBubble extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               child: Text(message,
                   style: TextStyle(
-                      color: Theme.of(context).accentTextTheme.title.color)),
+                      color: isMe?Colors.black: Theme.of(context).accentTextTheme.title.color)),
             ),
             Container(
               
               width: 140,
-              margin: EdgeInsets.only(top: 1, left: 8,bottom: 10,right:8),
+              margin: EdgeInsets.only(top: 0, left: 8,bottom: 5,right:15),
               child: Text(time,
                   style: TextStyle(
                       color: Colors.black,fontSize: 10),textAlign: TextAlign.right),
