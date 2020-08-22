@@ -5,36 +5,47 @@ import 'package:flutter_complete_guide/widgets/chat/message-bubble.dart';
 import 'package:intl/intl.dart';
 
 class Messages extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: Firestore.instance.collection("chat").orderBy("createdOn", descending:true).snapshots(),
-      builder: (ctx,chatSnapShots){
-        if(chatSnapShots.connectionState==ConnectionState.waiting){
-          return Center(child: CircularProgressIndicator(),);
-        }
-        final chatsDoc = chatSnapShots.data.documents;
-        return FutureBuilder(
-            future: FirebaseAuth.instance.currentUser(),
-            builder: (ctx,snapShot){
-              if(snapShot.connectionState !=ConnectionState.waiting){
-                return ListView.builder(
-                  reverse: true,
-                  itemCount: chatsDoc.length,
-                  itemBuilder: (ctx,index){
-                    var time = chatsDoc[index]["createdOn"].seconds;
-                    var format = DateFormat('HH:mm a');
-                    var date = DateTime.fromMillisecondsSinceEpoch(time * 1000);
-                    return  MessageBubble(chatsDoc[index]["text"],format.format(date),chatsDoc[index]["userId"]==snapShot.data.uid?true:false);
-                  },
-                
-                );
-              }
-              return Center(child: CircularProgressIndicator(),);
-            }
-        );
-      },
-    );
+    return FutureBuilder(
+        future: FirebaseAuth.instance.currentUser(),
+        builder: (ctx, snapShot) {
+          if (snapShot.connectionState != ConnectionState.waiting) {
+            return StreamBuilder(
+                stream: Firestore.instance
+                    .collection("chat")
+                    .orderBy("createdOn", descending: true)
+                    .snapshots(),
+                builder: (ctx, chatSnapShots) {
+                  if (chatSnapShots.connectionState ==
+                      ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  final chatsDoc = chatSnapShots.data.documents;
+                  return ListView.builder(
+                    reverse: true,
+                    itemCount: chatsDoc.length,
+                    itemBuilder: (ctx, index) {
+                      var time = chatsDoc[index]["createdOn"].seconds;
+                      var format = DateFormat('HH:mm a');
+                      var date =
+                          DateTime.fromMillisecondsSinceEpoch(time * 1000);
+                      return MessageBubble(
+                          chatsDoc[index]["text"],
+                          format.format(date),
+                          chatsDoc[index]["userId"] == snapShot.data.uid
+                              ? true
+                              : false);
+                    },
+                  );
+                });
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
   }
 }
