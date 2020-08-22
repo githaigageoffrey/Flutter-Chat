@@ -29,7 +29,7 @@ class Messages extends StatelessWidget {
                     itemCount: chatsDoc.length,
                     itemBuilder: (ctx, index) {
                       var time = chatsDoc[index]["createdOn"].seconds;
-                      var format = DateFormat('HH:mm a');
+                      var format = DateFormat('dd-MM-yyyy HH:mm');
                       var date =
                           DateTime.fromMillisecondsSinceEpoch(time * 1000);
                       return MessageBubble(
