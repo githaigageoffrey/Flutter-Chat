@@ -26,7 +26,7 @@ class Messages extends StatelessWidget {
                     var time = chatsDoc[index]["createdOn"].seconds;
                     var format = DateFormat('HH:mm a');
                     var date = DateTime.fromMillisecondsSinceEpoch(time * 1000);
-                    return  MessageBubble(chatsDoc[index]["text"],format.format(date),true);
+                    return  MessageBubble(chatsDoc[index]["text"],format.format(date),chatsDoc[index]["userId"]==snapShot.data.uid?true:false);
                   },
                 
                 );
