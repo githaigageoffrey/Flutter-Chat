@@ -37,7 +37,9 @@ class Messages extends StatelessWidget {
                           format.format(date),
                           chatsDoc[index]["userId"] == snapShot.data.uid
                               ? true
-                              : false);
+                              : false,
+                          key:ValueKey(chatsDoc[index].documentID)
+                        );
                     },
                   );
                 });

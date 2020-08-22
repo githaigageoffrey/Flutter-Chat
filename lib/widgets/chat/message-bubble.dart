@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class MessageBubble extends StatelessWidget {
   final String message,time;
   bool isMe;
-  MessageBubble(this.message,this.time,this.isMe);
+  final Key key;
+  MessageBubble(this.message,this.time,this.isMe,{this.key});
   @override
   Widget build(BuildContext context) {
     return Row(
