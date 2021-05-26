@@ -1,5 +1,6 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/widgets/chat/new-message.dart';
 import '../widgets/chat/messages.dart';
@@ -16,6 +17,18 @@ class _ChatScreenState extends State<ChatScreen>
   @override
   void initState() {
     super.initState();
+    final fbm = FirebaseMessaging();
+    fbm.requestNotificationPermissions();
+    fbm.configure(
+      onMessage: (msg){
+        print(msg);
+        return;
+      },
+      onResume: (msg){
+        print(msg);
+        return;
+      }
+    );
     _controller = AnimationController(vsync: this);
   }
 

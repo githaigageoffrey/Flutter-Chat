@@ -13,7 +13,7 @@ class AuthForm extends StatefulWidget {
 class _AuthFormState extends State<AuthForm>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
-  Map<String,dynamic> _authData = {};
+  // Map<String,dynamic> _authData = {};
   final _formKey = GlobalKey<FormState>();
   String _emailAddress='', _userName='',_password='';
   bool _isLogin = true;
