@@ -1,4 +1,4 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +11,7 @@ class UserImagePicker extends StatefulWidget {
 class _UserImagePickerState extends State<UserImagePicker>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
-  File _image;
+  // File _image;
   final picker = ImagePicker();
 
   @override
@@ -27,8 +27,8 @@ class _UserImagePickerState extends State<UserImagePicker>
   }
 
   void _pickImage() async{
-    final pickedImage = await picker.getImage(source: ImageSource.gallery);
-    final pickedImageFile = File(pickedImage.path); // requi
+    // final pickedImage = await picker.getImage(source: ImageSource.gallery);
+    // final pickedImageFile = File(pickedImage.path); // requi
   }
 
   @override
