@@ -31,7 +31,8 @@ class _AuthScreenState extends State<AuthScreen>
 
   void _submitForm(String emailAddress, String password, String username,
       bool isLogin, BuildContext ctx) async {
-    AuthResult authResult;
+    // AuthResult authResult;
+    UserCredential authResult;
     try {
       setState(() {
         _isLoading = true;
@@ -44,16 +45,21 @@ class _AuthScreenState extends State<AuthScreen>
             email: emailAddress, password: password);
         await FirebaseFirestore.instance
             .collection('users')
-            .document(authResult.user.uid)
-            .setData({"username": username, "email": emailAddress});
+            .doc(authResult.user?.uid)
+            .set({"username": username, "email": emailAddress});
       }
-      print(authResult);
+      // print(authResult);
     } on PlatformException catch (err) {
       var message = "Error occurred, please check your credentials";
       if (err.message != null) {
-        message = err.message;
+        message = err.message!;
       }
-      Scaffold.of(ctx).showSnackBar(SnackBar(
+      // Scaffold.of(ctx).showSnackBar(SnackBar(
+      //   content: Text(message),
+      //   backgroundColor: Theme.of(ctx).errorColor,
+      // ));
+
+      ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
         content: Text(message),
         backgroundColor: Theme.of(ctx).errorColor,
       ));
