@@ -4,8 +4,6 @@ import 'package:flutter_complete_guide/screens/auth-screen.dart';
 import 'package:flutter_complete_guide/screens/chat-screen.dart';
 import 'package:flutter_complete_guide/screens/splash-screen.dart';
 
-
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -16,9 +14,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.pink,
-        backgroundColor: Colors.pink,
-        accentColor: Colors.deepPurple,
-        accentColorBrightness: Brightness.dark,
+        // backgroundColor: Colors.pink,
+        scaffoldBackgroundColor: Colors.pink,
+        // accentColor: Colors.deepPurple,
+        // accentColorBrightness: Brightness.dark,
         buttonTheme: ButtonTheme.of(context).copyWith(
           buttonColor: Colors.pink,
           textTheme: ButtonTextTheme.primary,
@@ -27,15 +26,17 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: StreamBuilder(stream: FirebaseAuth.instance.onAuthStateChanged, builder: (ctx, userSnapshot) {
-        if (userSnapshot.connectionState == ConnectionState.waiting) {
-          return SplashScreen();
-        }
-        if (userSnapshot.hasData) {
-          return ChatScreen();
-        }
-        return AuthScreen();
-      }),
+      home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (ctx, userSnapshot) {
+            if (userSnapshot.connectionState == ConnectionState.waiting) {
+              return SplashScreen();
+            }
+            if (userSnapshot.hasData) {
+              return ChatScreen();
+            }
+            return AuthScreen();
+          }),
     );
   }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_complete_guide/widgets/auth/auth-form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -11,7 +13,7 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
   final _auth = FirebaseAuth.instance;
   var _isLoading = false;
 
@@ -40,7 +42,7 @@ class _AuthScreenState extends State<AuthScreen>
       } else {
         authResult = await _auth.createUserWithEmailAndPassword(
             email: emailAddress, password: password);
-        await Firestore.instance
+        await FirebaseFirestore.instance
             .collection('users')
             .document(authResult.user.uid)
             .setData({"username": username, "email": emailAddress});
@@ -57,7 +59,7 @@ class _AuthScreenState extends State<AuthScreen>
       ));
     } catch (err) {
       print(err);
-    }finally{
+    } finally {
       setState(() {
         _isLoading = false;
       });
@@ -68,6 +70,6 @@ class _AuthScreenState extends State<AuthScreen>
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        body: AuthForm(_submitForm,_isLoading));
+        body: AuthForm(_submitForm, _isLoading));
   }
 }

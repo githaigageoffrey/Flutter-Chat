@@ -12,7 +12,7 @@ class Messages extends StatelessWidget {
         builder: (ctx, snapShot) {
           if (snapShot.connectionState != ConnectionState.waiting) {
             return StreamBuilder(
-                stream: Firestore.instance
+                stream: FirebaseFirestore.instance
                     .collection("chat")
                     .orderBy("createdOn", descending: true)
                     .snapshots(),
@@ -39,8 +39,7 @@ class Messages extends StatelessWidget {
                               ? true
                               : false,
                           chatsDoc[index]["username"],
-                          key:ValueKey(chatsDoc[index].documentID)
-                        );
+                          key: ValueKey(chatsDoc[index].documentID));
                     },
                   );
                 });

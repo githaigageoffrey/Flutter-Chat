@@ -10,7 +10,7 @@ class UserImagePicker extends StatefulWidget {
 
 class _UserImagePickerState extends State<UserImagePicker>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
   // File _image;
   final picker = ImagePicker();
 
@@ -26,7 +26,7 @@ class _UserImagePickerState extends State<UserImagePicker>
     _controller.dispose();
   }
 
-  void _pickImage() async{
+  void _pickImage() async {
     // final pickedImage = await picker.getImage(source: ImageSource.gallery);
     // final pickedImageFile = File(pickedImage.path); // requi
   }
@@ -34,14 +34,20 @@ class _UserImagePickerState extends State<UserImagePicker>
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        children:<Widget>[
-          CircleAvatar(radius:40),
-          FlatButton.icon(onPressed: _pickImage, icon: Icon(Icons.image,color: Theme.of(context).primaryColor,), label: Text("Add Image",style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                ),)),
-        ]
-      )
-    );
+        child: Column(children: <Widget>[
+      CircleAvatar(radius: 40),
+      FlatButton.icon(
+          onPressed: _pickImage,
+          icon: Icon(
+            Icons.image,
+            color: Theme.of(context).primaryColor,
+          ),
+          label: Text(
+            "Add Image",
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+            ),
+          )),
+    ]));
   }
 }
