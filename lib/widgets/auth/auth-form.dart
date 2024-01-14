@@ -32,10 +32,10 @@ class _AuthFormState extends State<AuthForm>
   }
 
   void _submit() {
-    if (!_formKey.currentState.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
-    _formKey.currentState.save();
+    _formKey.currentState!.save();
     FocusScope.of(context).unfocus();
     widget.submitFn(_emailAddress, _password, _userName, _isLogin, context);
   }
@@ -59,10 +59,10 @@ class _AuthFormState extends State<AuthForm>
                   labelText: "Email Address",
                 ),
                 onSaved: (value) {
-                  _emailAddress = value.trim();
+                  _emailAddress = value!.trim();
                 },
                 validator: (value) {
-                  if (value.isEmpty || !value.contains('@')) {
+                  if (value!.isEmpty || !value.contains('@')) {
                     return "Enter a valid email address";
                   }
                   return null;
@@ -72,13 +72,13 @@ class _AuthFormState extends State<AuthForm>
                 TextFormField(
                   key: ValueKey("username"),
                   validator: (value) {
-                    if (value.isEmpty || value.length < 4) {
+                    if (value!.isEmpty || value.length < 4) {
                       return "Enter username atleast 4 characters";
                     }
                     return null;
                   },
                   onSaved: (value) {
-                    _userName = value.trim();
+                    _userName = value!.trim();
                   },
                   decoration: InputDecoration(
                     labelText: "Username",
@@ -87,7 +87,7 @@ class _AuthFormState extends State<AuthForm>
               TextFormField(
                 key: ValueKey("password"),
                 validator: (value) {
-                  if (value.isEmpty || value.length < 7) {
+                  if (value!.isEmpty || value.length < 7) {
                     return "Enter password atleast 7 characters";
                   }
                   return null;
@@ -98,7 +98,7 @@ class _AuthFormState extends State<AuthForm>
                 ),
                 obscureText: true,
                 onSaved: (value) {
-                  _password = value.trim();
+                  _password = value!.trim();
                 },
               ),
               SizedBox(
@@ -106,24 +106,40 @@ class _AuthFormState extends State<AuthForm>
               ),
               widget._isLoading
                   ? CircularProgressIndicator()
-                  : RaisedButton(
-                      child: Text(_isLogin ? "Login" : "Signup"),
+                  : ElevatedButton(
                       onPressed: () {
                         _submit();
                       },
-                    ),
+                      child: Text(_isLogin ? "Login" : "Signup")),
+              // RaisedButton(
+              //     child: Text(_isLogin ? "Login" : "Signup"),
+              //     onPressed: () {
+              //       _submit();
+              //     },
+              //   ),
               if (!widget._isLoading)
-                FlatButton(
-                  textColor: Theme.of(context).primaryColor,
-                  child: Text(_isLogin
-                      ? "Create new account"
-                      : "I already have an account"),
+                TextButton(
                   onPressed: () {
                     setState(() {
                       _isLogin = !_isLogin;
                     });
                   },
+                  child: Text(_isLogin
+                      ? "Create new account"
+                      : "I already have an account"),
                 )
+
+              // FlatButton(
+              //   textColor: Theme.of(context).primaryColor,
+              //   child: Text(_isLogin
+              //       ? "Create new account"
+              //       : "I already have an account"),
+              //   onPressed: () {
+              //     setState(() {
+              //       _isLogin = !_isLogin;
+              //     });
+              //   },
+              // )
             ]),
           ),
         )),
