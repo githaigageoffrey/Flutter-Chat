@@ -14,21 +14,27 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    final fbm = FirebaseMessaging();
-    fbm.requestNotificationPermissions();
-    fbm.configure(onMessage: (msg) {
-      print(msg);
-      return;
-    }, onLaunch: (msg) {
-      print(msg);
-      return;
-    }, onResume: (msg) {
-      print(msg);
-      return;
+    // final fbm = FirebaseMessaging();
+    final FirebaseMessaging fbm = FirebaseMessaging.instance;
+    fbm.requestPermission();
+
+    // fbm.requestNotificationPermissions();
+    // fbm.configure(onMessage: (msg) {
+    //   print(msg);
+    //   return;
+    // }, onLaunch: (msg) {
+    //   print(msg);
+    //   return;
+    // }, onResume: (msg) {
+    //   print(msg);
+    //   return;
+    // });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print(message);
     });
+
     fbm.subscribeToTopic('chat');
     fbm.subscribeToTopic('mpeketoni');
-    
   }
 
   @override
