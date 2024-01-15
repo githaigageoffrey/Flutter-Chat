@@ -36,7 +36,8 @@ class _UserImagePickerState extends State<UserImagePicker>
     return Container(
         child: Column(children: <Widget>[
       CircleAvatar(radius: 40),
-      FlatButton.icon(
+      TextButton.icon(
+          // FlatButton.icon(
           onPressed: _pickImage,
           icon: Icon(
             Icons.image,

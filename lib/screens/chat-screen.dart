@@ -16,7 +16,15 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
     // final fbm = FirebaseMessaging();
     final FirebaseMessaging fbm = FirebaseMessaging.instance;
-    fbm.requestPermission();
+    fbm.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
 
     // fbm.requestNotificationPermissions();
     // fbm.configure(onMessage: (msg) {
