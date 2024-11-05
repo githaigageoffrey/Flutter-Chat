@@ -4,7 +4,13 @@ A new Flutter project.
 
 ## Getting Started
 
-//You may need to update the flutter packages
+###You may need to update the flutter packages
+1. flutter upgrade.
+1. flutter channel.
+1. flutter channel beta flutter upgrade.
+1. flutter pub upgrade.
+1. flutter pub upgrade --major-versions.
+1. flutter pub outdated.
 
 This project is a starting point for a Flutter application.
 
